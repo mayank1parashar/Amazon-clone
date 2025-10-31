@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Shopping Cart | ShopZilla</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="components/navbar.js"></script>
+    <script src="components/footer.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            500: '#2563eb', // blue-600
+                        },
+                        secondary: {
+                            500: '#6b7280', // gray-500
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <custom-navbar></custom-navbar>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="max-w-6xl mx-auto">
+            <h1 class="text-3xl font-bold text-gray-900 mb-6">Shopping Cart</h1>
+            
+            <div class="flex flex-col lg:flex-row gap-6">
+                <!-- Cart Items Section -->
+                <div class="lg:w-2/3">
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-lg font-medium text-gray-900">3 items in your cart</h2>
+                            <button class="text-primary-500 hover:text-primary-600 text-sm font-medium">Deselect all items</button>
+                        </div>
+
+                        <div class="border-t border-gray-200 py-6">
+                            <!-- Cart Item 1 -->
+                            <div class="flex flex-col sm:flex-row gap-4 mb-6 pb-6 border-b border-gray-200 last:border-b-0 last:pb-0">
+                                <div class="flex items-center">
+                                    <input type="checkbox" class="h-4 w-4 rounded border-gray-300 text-primary-500 focus:ring-primary-500 mr-3">
+                                    <img src="http://static.photos/technology/320x240/1" alt="Product image" class="h-24 w-24 rounded-md object-cover object-center">
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex flex-col sm:flex-row sm:justify-between gap-2">
+                                        <div>
+                                            <h3 class="text-lg font-medium text-gray-900">Wireless Bluetooth Headphones</h3>
+                                            <p class="text-gray-500 text-sm mt-1">Color: Black | Model: WH-1000XM4</p>
+                                            <p class="text-primary-500 text-sm mt-1">In Stock</p>
+                                        </div>
+                                        <p class="text-lg font-medium text-gray-900">$349.99</p>
+                                    </div>
+                                    <div class="mt-4 flex items-center justify-between">
+                                        <div class="flex items-center border border-gray-300 rounded-md">
+                                            <button class="quantity-btn px-3 py-1 text-gray-600 hover:bg-gray-100">-</button>
+                                            <span class="px-3 py-1">1</span>
+                                            <button class="quantity-btn px-3 py-1 text-gray-600 hover:bg-gray-100">+</button>
+                                        </div>
+                                        <button class="text-sm font-medium text-primary-500 hover:text-primary-600">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Cart Item 2 -->
+                            <div class="flex flex-col sm:flex-row gap-4 mb-6 pb-6 border-b border-gray-200 last:border-b-0 last:pb-0">
+                                <div class="flex items-center">
+                                    <input type="checkbox" class="h-4 w-4 rounded border-gray-300 text-primary-500 focus:ring-primary-500 mr-3">
+                                    <img src="http://static.photos/technology/320x240/2" alt="Product image" class="h-24 w-24 rounded-md object-cover object-center">
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex flex-col sm:flex-row sm:justify-between gap-2">
+                                        <div>
+                                            <h3 class="text-lg font-medium text-gray-900">Smart Watch Series 5</h3>
+                                            <p class="text-gray-500 text-sm mt-1">Color: Midnight | Size: 44mm</p>
+                                            <p class="text-primary-500 text-sm mt-1">In Stock</p>
+                                        </div>
+                                        <p class="text-lg font-medium text-gray-900">$299.00</p>
+                                    </div>
+                                    <div class="mt-4 flex items-center justify-between">
+                                        <div class="flex items-center border border-gray-300 rounded-md">
+                                            <button class="quantity-btn px-3 py-1 text-gray-600 hover:bg-gray-100">-</button>
+                                            <span class="px-3 py-1">1</span>
+                                            <button class="quantity-btn px-3 py-1 text-gray-600 hover:bg-gray-100">+</button>
+                                        </div>
+                                        <button class="text-sm font-medium text-primary-500 hover:text-primary-600">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Cart Item 3 -->
+                            <div class="flex flex-col sm:flex-row gap-4 mb-6 pb-6 border-b border-gray-200 last:border-b-0 last:pb-0">
+                                <div class="flex items-center">
+                                    <input type="checkbox" class="h-4 w-4 rounded border-gray-300 text-primary-500 focus:ring-primary-500 mr-3">
+                                    <img src="http://static.photos/technology/320x240/3" alt="Product image" class="h-24 w-24 rounded-md object-cover object-center">
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex flex-col sm:flex-row sm:justify-between gap-2">
+                                        <div>
+                                            <h3 class="text-lg font-medium text-gray-900">USB-C Fast Charger</h3>
+                                            <p class="text-gray-500 text-sm mt-1">30W Power Delivery</p>
+                                            <p class="text-primary-500 text-sm mt-1">In Stock</p>
+                                        </div>
+                                        <p class="text-lg font-medium text-gray-900">$29.99</p>
+                                    </div>
+                                    <div class="mt-4 flex items-center justify-between">
+                                        <div class="flex items-center border border-gray-300 rounded-md">
+                                            <button class="quantity-btn px-3 py-1 text-gray-600 hover:bg-gray-100">-</button>
+                                            <span class="px-3 py-1">2</span>
+                                            <button class="quantity-btn px-3 py-1 text-gray-600 hover:bg-gray-100">+</button>
+                                        </div>
+                                        <button class="text-sm font-medium text-primary-500 hover:text-primary-600">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 flex justify-end">
+                            <p class="text-gray-900">
+                                <span class="text-sm font-medium">Subtotal (3 items):</span>
+                                <span class="text-xl font-bold ml-2">$678.98</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Order Summary Section -->
+                <div class="lg:w-1/3">
+                    <div class="bg-white rounded-lg shadow-sm p-6 sticky top-6">
+                        <h2 class="text-lg font-medium text-gray-900 mb-4">Order Summary</h2>
+                        
+                        <div class="space-y-4">
+                            <div class="flex justify-between text-sm text-gray-600">
+                                <span>Items (3):</span>
+                                <span>$678.98</span>
+                            </div>
+                            <div class="flex justify-between text-sm text-gray-600">
+                                <span>Shipping & handling:</span>
+                                <span>$0.00</span>
+                            </div>
+                            <div class="flex justify-between text-sm text-gray-600">
+                                <span>Estimated tax:</span>
+                                <span>$47.53</span>
+                            </div>
+                            <div class="border-t border-gray-200 pt-4 flex justify-between text-base font-medium text-gray-900">
+                                <span>Order total:</span>
+                                <span>$726.51</span>
+                            </div>
+                        </div>
+
+                        <button class="mt-6 w-full bg-primary-500 hover:bg-primary-600 text-white py-3 px-4 rounded-md font-medium transition-colors">
+                            Proceed to Checkout
+                        </button>
+
+                        <div class="mt-4 text-center text-xs text-gray-500">
+                            or <a href="/" class="text-primary-500 hover:text-primary-600 font-medium">Continue Shopping</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <custom-footer></custom-footer>
+
+    <script src="script.js"></script>
+    <script>feather.replace();</script>
+</body>
+</html>
