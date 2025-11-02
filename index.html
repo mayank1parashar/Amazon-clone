@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopZilla - Your Online Shopping Destination</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { 500: '#131921', 600: '#0f1419' },
+                        accent: { 500: '#febd69', 600: '#f3a847' }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <nav class="bg-primary-500 text-white">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-8">
+                    <a href="/" class="flex items-center gap-2 text-2xl font-bold hover:opacity-80">
+                        <i data-feather="shopping-cart"></i>
+                        <span>ShopZilla</span>
+                    </a>
+                    <div class="hidden md:flex items-center gap-2 text-sm">
+                        <i data-feather="map-pin" class="w-4 h-4"></i>
+                        <div>
+                            <div class="text-xs text-gray-300">Deliver to</div>
+                            <div class="font-bold">United States</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex-1 max-w-2xl w-full">
+                    <div class="flex">
+                        <input type="text" id="searchInput" placeholder="Search products..."
+                            class="flex-1 px-4 py-2 rounded-l-md text-gray-900 focus:outline-none">
+                        <button id="searchBtn" class="bg-accent-500 hover:bg-accent-600 px-6 py-2 rounded-r-md transition-colors">
+                            <i data-feather="search" class="text-primary-500"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-6">
+                    <a href="#" id="accountBtn" class="hidden md:block hover:border border-transparent hover:border-white px-2 py-1 rounded transition-all">
+                        <div class="text-xs">Hello, Sign in</div>
+                        <div class="font-bold">Account & Lists</div>
+                    </a>
+                    <a href="pages/cart.html" class="flex items-center gap-2 hover:border border-transparent hover:border-white px-2 py-1 rounded transition-all relative">
+                        <i data-feather="shopping-cart"></i>
+                        <span class="font-bold">Cart</span>
+                        <span id="cartCount" class="absolute -top-1 -right-1 bg-accent-500 text-primary-500 text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-primary-600 border-t border-gray-700">
+            <div class="container mx-auto px-4 py-2">
+                <div class="flex items-center gap-6 text-sm overflow-x-auto">
+                    <button id="allCategoriesBtn" class="flex items-center gap-1 hover:border border-white px-2 py-1 rounded whitespace-nowrap">
+                        <i data-feather="menu" class="w-4 h-4"></i>
+                        All
+                    </button>
+                    <div id="categoryNav" class="flex items-center gap-6"></div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="relative h-96 bg-gradient-to-b from-gray-700 to-gray-300">
+            <div class="absolute inset-0 flex items-center justify-center">
+                <img src="https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg"
+                    alt="Hero" class="w-full h-full object-cover opacity-80">
+            </div>
+            <div class="relative container mx-auto px-4 h-full flex flex-col items-center justify-center text-center text-white">
+                <h1 class="text-5xl font-bold mb-4 drop-shadow-lg">Welcome to ShopZilla</h1>
+                <p class="text-xl mb-8 drop-shadow-lg">Discover amazing deals on products you love</p>
+                <button onclick="document.getElementById('featured').scrollIntoView({behavior:'smooth'})"
+                    class="bg-accent-500 hover:bg-accent-600 text-primary-500 px-8 py-3 rounded-md font-bold text-lg transition-colors">
+                    Shop Now
+                </button>
+            </div>
+        </section>
+
+        <section id="featured" class="container mx-auto px-4 py-12">
+            <h2 class="text-3xl font-bold mb-8">Featured Products</h2>
+            <div id="featuredProducts" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+        </section>
+
+        <section class="container mx-auto px-4 py-12">
+            <h2 class="text-3xl font-bold mb-8">Shop by Category</h2>
+            <div id="categoriesGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+        </section>
+
+        <section class="container mx-auto px-4 py-12">
+            <h2 class="text-3xl font-bold mb-8">All Products</h2>
+            <div class="flex flex-col md:flex-row gap-6">
+                <aside class="w-full md:w-64">
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <h3 class="font-bold text-lg mb-4">Filters</h3>
+                        <div class="mb-6">
+                            <h4 class="font-semibold mb-2">Price Range</h4>
+                            <input type="range" id="priceRange" min="0" max="500" value="500" class="w-full">
+                            <div class="flex justify-between text-sm text-gray-600">
+                                <span>$0</span>
+                                <span id="maxPrice">$500</span>
+                            </div>
+                        </div>
+                        <div class="mb-6">
+                            <h4 class="font-semibold mb-2">Rating</h4>
+                            <div class="space-y-2">
+                                <label class="flex items-center gap-2">
+                                    <input type="checkbox" value="4" class="rating-filter">
+                                    <span class="text-sm">4★ & up</span>
+                                </label>
+                                <label class="flex items-center gap-2">
+                                    <input type="checkbox" value="3" class="rating-filter">
+                                    <span class="text-sm">3★ & up</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+
+                <div class="flex-1">
+                    <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+                    <div id="loading" class="text-center py-12 hidden">
+                        <div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-primary-500 border-t-transparent"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-primary-500 text-white mt-12">
+        <div class="bg-primary-600 py-4">
+            <div class="container mx-auto px-4 text-center">
+                <button onclick="window.scrollTo({top:0,behavior:'smooth'})" class="hover:underline">
+                    Back to top
+                </button>
+            </div>
+        </div>
+
+        <div class="container mx-auto px-4 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="font-bold text-lg mb-4">Get to Know Us</h3>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li><a href="#" class="hover:underline">Careers</a></li>
+                        <li><a href="#" class="hover:underline">About ShopZilla</a></li>
+                        <li><a href="#" class="hover:underline">Investor Relations</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg mb-4">Make Money with Us</h3>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li><a href="#" class="hover:underline">Sell products</a></li>
+                        <li><a href="#" class="hover:underline">Become an Affiliate</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg mb-4">Payment Products</h3>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li><a href="#" class="hover:underline">Business Card</a></li>
+                        <li><a href="#" class="hover:underline">Shop with Points</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg mb-4">Let Us Help You</h3>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li><a href="#" class="hover:underline">Your Account</a></li>
+                        <li><a href="#" class="hover:underline">Your Orders</a></li>
+                        <li><a href="#" class="hover:underline">Help</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="border-t border-gray-700 py-6">
+            <div class="container mx-auto px-4 text-center text-sm text-gray-400">
+                <p>&copy; 2025 ShopZilla, Inc. or its affiliates</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="src/js/app.js" type="module"></script>
+    <script>feather.replace();</script>
+</body>
+</html>

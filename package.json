@@ -1,0 +1,24 @@
+{
+  "name": "shopzilla-ecommerce",
+  "version": "2.0.0",
+  "description": "Modern e-commerce platform built with Supabase",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0"
+  },
+  "devDependencies": {
+    "vite": "^5.0.11"
+  },
+  "keywords": [
+    "ecommerce",
+    "shopping",
+    "supabase"
+  ],
+  "author": "Mayank Parashar",
+  "license": "MIT"
+}
